@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Alphabets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts for a playful look -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ffecd2, #fcb69f, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .container {
+            max-width: 340px;
+            margin: 30px auto 0;
+            background: rgba(255,255,255,0.7);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            padding: 18px 10px 10px 10px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 420px;
+        }
+        h2 {
+            text-align: center;
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.5rem;
+            color: #3a3a3a;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #fff8;
+        }
+        .alphabet {
+            font-family: 'Baloo 2', cursive;
+            font-size: 5rem;
+            text-align: center;
+            color: #fff;
+            background: linear-gradient(120deg, #fcb69f 0%, #a1c4fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 auto;
+            margin-top: 18px;
+            margin-bottom: 0;
+            transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.4s;
+            opacity: 1;
+            display: block;
+            padding: 18px 0 6px 0;
+        }
+        .alphabet.animate {
+            transform: scale(1.2) rotate(-10deg);
+            opacity: 0.5;
+        }
+        .alphabet.highlight {
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: highlightScale 0.5s;
+        }
+        @keyframes highlightScale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+            100% { transform: scale(1); }
+        }
+        .examples {
+            margin: 0 0 6px 0;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            min-height: 36px;
+        }
+        .example-word {
+            background: linear-gradient(90deg, #fcb69f 0%, #a1c4fd 100%);
+            color: #fff;
+            border-radius: 12px;
+            padding: 6px 12px;
+            font-size: 1rem;
+            font-family: 'Baloo 2', cursive;
+            margin: 0 2px;
+            box-shadow: 0 2px 8px #a1c4fd33;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            user-select: none;
+            display: inline-block;
+        }
+        .example-word.highlight {
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            color: #3a3a3a;
+            animation: highlightScale 0.5s;
+        }
+        .example-word:hover {
+            background: linear-gradient(90deg, #a1c4fd 0%, #fcb69f 100%);
+            transform: scale(1.08);
+        }
+        .auto-btn {
+            margin: 10px auto 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            color: #3a3a3a;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 1.3rem;
+            font-family: 'Baloo 2', cursive;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #ffd20055;
+            transition: background 0.3s, transform 0.2s;
+            outline: none;
+        }
+        .auto-btn.active {
+            background: linear-gradient(90deg, #a1c4fd 0%, #fcb69f 100%);
+            color: #fff;
+        }
+        .auto-btn:hover {
+            transform: scale(1.08);
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 12px 0 0 0;
+        }
+        button:not(.auto-btn) {
+            background: linear-gradient(90deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #3a3a3a;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-family: 'Baloo 2', cursive;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #a1c4fd55;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:not(.auto-btn):hover {
+            background: linear-gradient(90deg, #fcb69f 0%, #a1c4fd 100%);
+            transform: translateY(-2px) scale(1.05);
+        }
+        .ad-banner {
+            margin: 18px 0 0 0;
+            text-align: center;
+            padding: 10px 0 0 0;
+            border-top: 1px solid #e0e0e0;
+            animation: fadeInAd 1.2s 0.5s both;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .adsense-test-container {
+            width: 320px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background: #f8f8f8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        @keyframes fadeInAd {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .ad-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 350px) {
+            .container { max-width: 98vw; padding: 8px 2vw 8px 2vw; min-height: 300px;}
+            .alphabet { font-size: 2.5rem; padding: 8px 0 3px 0;}
+            button, .auto-btn { padding: 6px 10px; font-size: 0.9rem;}
+            .examples { min-height: 20px;}
+            .auto-btn { width: 30px; height: 30px; font-size: 1rem;}
+            .adsense-test-container { width: 98vw; min-width: 200px; height: 60px;}
+        }
+    </style>
+    <!-- Your AdSense script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8563528764533552"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Learn Alphabets</h2>
+        <div class="alphabet" id="alphabet">A</div>
+        <div class="examples" id="examples"></div>
+        <button class="auto-btn" id="autoPronounceBtn" title="Auto Pronounce"></button>
+        <div class="buttons">
+            <button onclick="prevAlphabet()">Previous</button>
+            <button onclick="nextAlphabet()">Next</button>
+        </div>
+        <div class="ad-banner">
+            <div class="adsense-test-container">
+                <!-- Your AdSense Banner (fixed size for best display) -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:320px;height:100px"
+                     data-ad-client="ca-pub-8563528764533552"
+                     data-ad-slot="6300978111"></ins>
+            </div>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <div class="ad-label">AdSense Banner</div>
+        </div>
+    </div>
+    <script>
+        // Example words for each letter
+        const exampleWords = {
+            A: ["Apple", "Ant", "Axe", "Airplane", "Arrow"],
+            B: ["Ball", "Bat", "Book", "Bee", "Boat"],
+            C: ["Cat", "Car", "Cake", "Cow", "Cup"],
+            D: ["Dog", "Duck", "Drum", "Door", "Doll"],
+            E: ["Elephant", "Egg", "Ear", "Eagle", "Engine"],
+            F: ["Fish", "Frog", "Fan", "Flag", "Fox"],
+            G: ["Goat", "Grapes", "Girl", "Gift", "Glass"],
+            H: ["Hat", "Horse", "House", "Hand", "Hen"],
+            I: ["Ice", "Ink", "Igloo", "Iron", "Insect"],
+            J: ["Jug", "Jam", "Jeep", "Jacket", "Jar"],
+            K: ["Kite", "Key", "King", "Kangaroo", "Knife"],
+            L: ["Lion", "Lamp", "Leaf", "Lemon", "Lock"],
+            M: ["Monkey", "Moon", "Mango", "Mouse", "Milk"],
+            N: ["Nest", "Nose", "Net", "Nail", "Nurse"],
+            O: ["Orange", "Owl", "Ox", "Onion", "Octopus"],
+            P: ["Parrot", "Pen", "Pig", "Pot", "Pumpkin"],
+            Q: ["Queen", "Quilt", "Quail", "Quiz", "Quarter"],
+            R: ["Rabbit", "Rat", "Ring", "Rose", "Rocket"],
+            S: ["Sun", "Star", "Snake", "Ship", "Sock"],
+            T: ["Tiger", "Table", "Tap", "Tree", "Train"],
+            U: ["Umbrella", "Urn", "Unicorn", "Uniform", "Utensil"],
+            V: ["Van", "Vase", "Violin", "Vulture", "Vegetable"],
+            W: ["Watch", "Wolf", "Wheel", "Whale", "Window"],
+            X: ["Xylophone", "X-ray", "Xerus", "Xmas", "Xenops"],
+            Y: ["Yak", "Yarn", "Yacht", "Yam", "Yellow"],
+            Z: ["Zebra", "Zip", "Zoo", "Zero", "Zigzag"]
+        };
+
+        const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+        let current = 0;
+        const alphabetDiv = document.getElementById('alphabet');
+        const examplesDiv = document.getElementById('examples');
+        const autoBtn = document.getElementById('autoPronounceBtn');
+
+        // Auto pronounce state
+        let autoPronounceActive = false;
+        let autoPronounceId = 0; // Used to cancel previous auto-pronounce
+
+        // Set speaker icon
+        function updateAutoBtn() {
+            autoBtn.innerHTML = autoPronounceActive
+                ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;"><rect x="5" y="5" width="14" height="14" rx="3" fill="currentColor"/></svg>'
+                : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;"><path d="M3 10v4h4l5 5V5L7 10H3z" fill="currentColor"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.06A4.978 4.978 0 0 0 16.5 12z" fill="currentColor"/><path d="M14 3.23v2.06c3.39.49 6 3.39 6 6.71s-2.61 6.22-6 6.71v2.06c4.01-.51 7-3.86 7-7.77s-2.99-7.26-7-7.77z" fill="currentColor"/></svg>';
+            if (autoPronounceActive) {
+                autoBtn.classList.add('active');
+                autoBtn.title = "Stop Auto Pronounce";
+            } else {
+                autoBtn.classList.remove('active');
+                autoBtn.title = "Start Auto Pronounce";
+            }
+        }
+
+        // Highlight helpers
+        function highlightElement(el) {
+            if (el) {
+                el.classList.add('highlight');
+            }
+        }
+        function unhighlightElement(el) {
+            if (el) {
+                el.classList.remove('highlight');
+            }
+        }
+
+        // Stop all speech
+        function stopSpeech() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        // Speech Synthesis with highlight
+        function speakWithHighlight(text, el, rate = 0.9, pitch = 1.1, callback = null) {
+            stopSpeech();
+            highlightElement(el);
+            if (!('speechSynthesis' in window)) {
+                if (callback) callback();
+                return;
+            }
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.rate = rate;
+            utter.pitch = pitch;
+            utter.lang = 'en-US';
+            utter.onend = () => {
+                setTimeout(() => unhighlightElement(el), 200);
+                if (callback) setTimeout(callback, 250);
+            };
+            window.speechSynthesis.speak(utter);
+        }
+
+        function showExamples(letter) {
+            examplesDiv.innerHTML = '';
+            const words = exampleWords[letter] || [];
+            words.forEach((word, idx) => {
+                const span = document.createElement('span');
+                span.className = 'example-word';
+                span.textContent = word;
+                span.onclick = () => {
+                    stopSpeech();
+                    speakWithHighlight(word, span, 1, 1.1);
+                };
+                examplesDiv.appendChild(span);
+            });
+        }
+
+        function pronounceAll(letter, pronounceId) {
+            // Pronounce the letter, then each word in order with highlight
+            let words = exampleWords[letter] || [];
+            let i = 0;
+            const wordSpans = Array.from(document.getElementsByClassName('example-word'));
+            function speakNext() {
+                // If autoPronounceActive is off or the id has changed, stop
+                if (!autoPronounceActive || pronounceId !== autoPronounceId) {
+                    stopSpeech();
+                    return;
+                }
+                if (i < words.length) {
+                    speakWithHighlight(words[i], wordSpans[i], 1, 1.1, speakNext);
+                    i++;
+                }
+            }
+            // Pronounce the letter first, then the words
+            speakWithHighlight(letter, alphabetDiv, 0.7, 1.5, speakNext);
+        }
+
+        function showAlphabet(animate = true) {
+            stopSpeech();
+            const letter = alphabets[current];
+            if (animate) {
+                alphabetDiv.classList.add('animate');
+                setTimeout(() => {
+                    alphabetDiv.textContent = letter;
+                    alphabetDiv.classList.remove('animate');
+                    showExamples(letter);
+                    if (autoPronounceActive) {
+                        autoPronounceId++;
+                        pronounceAll(letter, autoPronounceId);
+                    }
+                }, 200);
+            } else {
+                alphabetDiv.textContent = letter;
+                showExamples(letter);
+                if (autoPronounceActive) {
+                    autoPronounceId++;
+                    pronounceAll(letter, autoPronounceId);
+                }
+            }
+        }
+        function prevAlphabet() {
+            current = (current - 1 + alphabets.length) % alphabets.length;
+            showAlphabet();
+        }
+        function nextAlphabet() {
+            current = (current + 1) % alphabets.length;
+            showAlphabet();
+        }
+
+        // Auto Pronounce Button Logic
+        function toggleAutoPronounce() {
+            if (autoPronounceActive) {
+                stopAutoPronounce();
+            } else {
+                startAutoPronounce();
+            }
+        }
+        function startAutoPronounce() {
+            stopSpeech();
+            autoPronounceActive = true;
+            autoPronounceId++;
+            updateAutoBtn();
+            pronounceAll(alphabets[current], autoPronounceId);
+        }
+        function stopAutoPronounce() {
+            autoPronounceActive = false;
+            stopSpeech();
+            updateAutoBtn();
+        }
+
+        // Initial display
+        updateAutoBtn();
+        showAlphabet(false);
+
+        // Button event
+        autoBtn.onclick = toggleAutoPronounce;
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "ArrowLeft") prevAlphabet();
+            if (e.key === "ArrowRight") nextAlphabet();
+        });
+    </script>
+</body>
+</html>
