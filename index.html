@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Learn Alphabets</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Google Fonts for a playful look -->
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet" />
     <style>
         body {
             min-height: 100vh;
@@ -61,10 +61,7 @@
             display: block;
             padding: 18px 0 6px 0;
         }
-        .alphabet.animate {
-            transform: scale(1.2) rotate(-10deg);
-            opacity: 0.5;
-        }
+        .alphabet.animate { transform: scale(1.2) rotate(-10deg); opacity: 0.5; }
         .alphabet.highlight {
             background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
             -webkit-background-clip: text;
@@ -132,9 +129,7 @@
             background: linear-gradient(90deg, #a1c4fd 0%, #fcb69f 100%);
             color: #fff;
         }
-        .auto-btn:hover {
-            transform: scale(1.08);
-        }
+        .auto-btn:hover { transform: scale(1.08); }
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -158,48 +153,14 @@
             background: linear-gradient(90deg, #fcb69f 0%, #a1c4fd 100%);
             transform: translateY(-2px) scale(1.05);
         }
-        .ad-banner {
-            margin: 18px 0 0 0;
-            text-align: center;
-            padding: 10px 0 0 0;
-            border-top: 1px solid #e0e0e0;
-            animation: fadeInAd 1.2s 0.5s both;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .adsense-test-container {
-            width: 320px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            background: #f8f8f8;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        @keyframes fadeInAd {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        .ad-label {
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-            letter-spacing: 1px;
-        }
         @media (max-width: 350px) {
-            .container { max-width: 98vw; padding: 8px 2vw 8px 2vw; min-height: 300px;}
-            .alphabet { font-size: 2.5rem; padding: 8px 0 3px 0;}
-            button, .auto-btn { padding: 6px 10px; font-size: 0.9rem;}
-            .examples { min-height: 20px;}
-            .auto-btn { width: 30px; height: 30px; font-size: 1rem;}
-            .adsense-test-container { width: 98vw; min-width: 200px; height: 60px;}
+            .container { max-width: 98vw; padding: 8px 2vw; min-height: 300px; }
+            .alphabet { font-size: 2.5rem; padding: 8px 0 3px; }
+            button, .auto-btn { padding: 6px 10px; font-size: 0.9rem; }
+            .examples { min-height: 20px; }
+            .auto-btn { width: 30px; height: 30px; font-size: 1rem; }
         }
     </style>
-    <!-- Removed AdSense script -->
 </head>
 <body>
     <div class="container">
@@ -211,8 +172,6 @@
             <button onclick="prevAlphabet()">Previous</button>
             <button onclick="nextAlphabet()">Next</button>
         </div>
-
-        <!-- Removed the old AdSense Banner section -->
     </div>
 
     <script>
@@ -271,22 +230,12 @@
         }
 
         // Highlight helpers
-        function highlightElement(el) {
-            if (el) {
-                el.classList.add('highlight');
-            }
-        }
-        function unhighlightElement(el) {
-            if (el) {
-                el.classList.remove('highlight');
-            }
-        }
+        function highlightElement(el) { if (el) el.classList.add('highlight'); }
+        function unhighlightElement(el) { if (el) el.classList.remove('highlight'); }
 
         // Stop all speech
         function stopSpeech() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
         // Speech Synthesis with highlight
@@ -311,7 +260,7 @@
         function showExamples(letter) {
             examplesDiv.innerHTML = '';
             const words = exampleWords[letter] || [];
-            words.forEach((word, idx) => {
+            words.forEach(word => {
                 const span = document.createElement('span');
                 span.className = 'example-word';
                 span.textContent = word;
@@ -325,11 +274,10 @@
 
         function pronounceAll(letter, pronounceId) {
             // Pronounce the letter, then each word in order with highlight
-            let words = exampleWords[letter] || [];
+            const words = exampleWords[letter] || [];
             let i = 0;
             const wordSpans = Array.from(document.getElementsByClassName('example-word'));
             function speakNext() {
-                // If autoPronounceActive is off or the id has changed, stop
                 if (!autoPronounceActive || pronounceId !== autoPronounceId) {
                     stopSpeech();
                     return;
@@ -339,7 +287,6 @@
                     i++;
                 }
             }
-            // Pronounce the letter first, then the words
             speakWithHighlight(letter, alphabetDiv, 0.7, 1.5, speakNext);
         }
 
@@ -366,6 +313,7 @@
                 }
             }
         }
+
         function prevAlphabet() {
             current = (current - 1 + alphabets.length) % alphabets.length;
             showAlphabet();
@@ -377,11 +325,8 @@
 
         // Auto Pronounce Button Logic
         function toggleAutoPronounce() {
-            if (autoPronounceActive) {
-                stopAutoPronounce();
-            } else {
-                startAutoPronounce();
-            }
+            if (autoPronounceActive) stopAutoPronounce();
+            else startAutoPronounce();
         }
         function startAutoPronounce() {
             stopSpeech();
@@ -410,29 +355,29 @@
         });
     </script>
 
+    <!-- SDK: must appear before the interstitial call -->
+    <script src='//libtl.com/sdk.js' data-zone='9784132' data-sdk='show_9784132'></script>
+
     <script>
-        // In-App Interstitial
-
-        show_9784132({
-          type: 'inApp',
-          inAppSettings: {
-            frequency: 2,
-            capping: 0.1,
-            interval: 30,
-            timeout: 5,
-            everyPage: false
-          }
-        })
-
+        // In-App Interstitial (guarded in case SDK is blocked)
+        if (typeof show_9784132 === 'function') {
+            show_9784132({
+                type: 'inApp',
+                inAppSettings: {
+                    frequency: 2,
+                    capping: 0.1,
+                    interval: 30,
+                    timeout: 5,
+                    everyPage: false
+                }
+            });
+        }
         /*
-        This value is decoded as follows:
-        - show automatically 2 ads
-          within 0.1 hours (6 minutes)
-          with a 30-second interval between them
-          and a 5-second delay before the first one is shown.
-          The last digit, 0, means that the session will be saved when you navigate between pages.
-          If you set the last digit as 1, then at any transition between pages,
-          the session will be reset, and the ads will start again.
+        Decoded:
+        - show automatically 2 ads within 0.1 hours (6 minutes)
+        - 30-second interval between them
+        - 5-second delay before first one
+        - session persists across page navigations (everyPage: false)
         */
     </script>
 </body>
